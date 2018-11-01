@@ -7,12 +7,16 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 # puts 'Cleaning database...'
 # Ingredient.destroy_all
-
-Ingredient.create(name: "lemon")
-Ingredient.create(name: "ice")
-Ingredient.create(name: "mint leaves")
-
-# http://ruby-doc.org/stdlib-2.0.0/libdoc/open-uri/rdoc/OpenURI.html
-require 'open-uri'
-# https://github.com/flori/json
+require "open-uri"
 require 'json'
+
+url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
+read = open(url).read
+hash = JSON.parse(read)
+#  Quando abrimos a url, o "drinks" eh o nome da table, e ai puxamos o conteudo
+
+hash['drinks'].each do |key|
+  ing = Ingredient.new
+  ing.name = key['strIngredient1']
+  ing.save
+end
