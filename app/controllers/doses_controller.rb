@@ -1,33 +1,33 @@
 class DosesController < ApplicationController
-  before_action :set_dose, only: [:destroy]
+  before_action :set_cocktail, only: [:new, :create]
   def new
-    @dose = Dose.new
+    # Aqui estou associando o cocktail e sua localizacao
+    # @cocktail = Cocktail.find(params[:cocktail_id])
+    # Aqui, o doses passa uma relacao, o build poe um alemento a mais no array
+    @dose = @cocktail.doses.build
   end
 
   def create
     @dose = Dose.new(doses_params)
-    respond_to do |format|
       if @dose.save
-        format.html {redirect_to @dose, notice: 'doses esta sendo feito'}
-        format.json {render :show, status: :created, location: @dose}
+        redirect_to cocktail_path(@cocktail)
       else
-        format.html {render :new}
-        format.json {render json: @cocktail.erros, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
   def destroy
+    @dose = Dose.find(params[:id])
     @dose.destroy
   end
 end
 
 private
 
-  def set_dose
-    @dose = Dose.find(params[:id])
+  def set_cocktail
+    @cocktail = Cocktail.find(params[:cocktail_id])
   end
 
   def doses_params
-    params.require(:dose).permit(:name)
+    params.require(:dose).permit(:description, :ingredient_id, :cocktail_id)
   end
