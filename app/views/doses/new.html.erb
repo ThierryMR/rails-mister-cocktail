@@ -2,7 +2,7 @@
 <div class="container">
 <h1>New Page</h1>
 
-<%= simple_form_for @dose do |f| %>
+<%= simple_form_for [@dose] do |f| %>
   <%= f.input :description  %>
 
   <% f.submit "Add Dose", class: "btn-btn-primary" %>
