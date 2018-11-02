@@ -6,6 +6,11 @@
   <%= f.input :description  %>
   <%= f.input :ingredient  %>
 
+
   <%= f.submit "Add Dose", class: "btn-btn-primary" %>
   <% end %>
+  <% @ingredient.each do |i|  %>
+   <li> <%= i.name  %></li>
+  <% end %>
+
 </div>
