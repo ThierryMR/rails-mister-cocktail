@@ -9,7 +9,6 @@
 # Ingredient.destroy_all
 require "open-uri"
 require 'json'
-
 url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
 read = open(url).read
 hash = JSON.parse(read)
@@ -19,4 +18,10 @@ hash['drinks'].each do |key|
   ing = Ingredient.new
   ing.name = key['strIngredient1']
   ing.save
+end
+
+10.times do
+  cocktail = Cocktail.new
+  cocktail.name = Faker::Ancient.primordial
+  cocktail.save
 end

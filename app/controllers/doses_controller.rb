@@ -4,10 +4,12 @@ class DosesController < ApplicationController
     # Aqui estou associando o cocktail e sua localizacao
     # @cocktail = Cocktail.find(params[:cocktail_id])
     # Aqui, o doses passa uma relacao, o build poe um alemento a mais no array
-    @dose = @cocktail.doses.build
+    # @dose = @cocktail.doses.build
+    @dose = Dose.new
   end
 
   def create
+    @cocktail = Cocktail.find(params[:cocktail_id])
     @dose = Dose.new(doses_params)
       if @dose.save
         redirect_to cocktail_path(@cocktail)

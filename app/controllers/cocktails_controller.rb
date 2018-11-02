@@ -16,15 +16,12 @@ class CocktailsController < ApplicationController
 
   def create
     @cocktail = Cocktail.new(cocktail_params)
-    respond_to do |format|
+
       if @cocktail.save
-        format.html {redirect_to @cocktail, notice: 'Cocktail esta sendo feito'}
-        format.json {render :show, status: :created, location: @cocktail}
+        redirect_to cocktail_path(@cocktail)
       else
-        format.html {render :new}
-        format.json {render json: @cocktail.erros, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
  private
@@ -36,6 +33,5 @@ class CocktailsController < ApplicationController
   def cocktail_params
     params.require(:cocktail).permit(:name)
   end
-
 
 end
