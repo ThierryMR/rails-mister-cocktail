@@ -1,16 +1,29 @@
-<h1>New doses</h1>
 <div class="container">
-<h1>New Page</h1>
+<h1>New doses</h1>
 
-<%= simple_form_for @dose, url:{action: "create"}  do |f| %>
+<%= simple_form_for [@dose, @cocktail], url:{action: "create"}  do |f| %>
   <%= f.input :description  %>
-  <%= f.input :ingredient  %>
-
+  <%= f.association :ingredient  %>
 
   <%= f.submit "Add Dose", class: "btn-btn-primary" %>
   <% end %>
   <% @ingredient.each do |i|  %>
    <li> <%= i.name  %></li>
   <% end %>
+  <%= @dose.cocktails %>
+
 
 </div>
+
+
+<!-- Quero fazer a ligacao entre
+os cocktails, e suas doses -->
+  <% @cocktail.doses.each do |dose|  %>
+
+    <p> <%= "#{dose.description} #{dose.ingredient.name}" %> </p>
+    <%= link_to "Delete", cocktail_path(@cocktail),
+         method: :delete,
+         data: { confirm: "Are you sure?" } %>
+    <br>
+    <br>
+    <% end %>

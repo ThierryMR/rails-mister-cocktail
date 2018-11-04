@@ -1,4 +1,24 @@
-<h1>Show page</h1>
+<div class="container">
+<h1><%=@cocktail.name  %>  </h1>
 
- <%= @cocktail.name  %>
+  <h2> Opa galera, adicione as pardas abaixo:</h2>
 
+<%= simple_form_for [@dose], url:{action: "create"}  do |f| %>
+  <%= f.input :description  %>
+  <%= f.association :ingredient  %>
+
+  <%= f.submit "Add Dose", class: "btn-btn-primary" %>
+  <% end %>
+  <% @ingredient.each do |i|  %>
+  <% end %>
+  <%= link_to "Delete", dose_path(@cocktail),
+            method: :delete,
+            data: {confirm: "are you sure?" }%>
+            <br>
+            <br>
+
+</div>
+
+
+ <p> <%= @dose.cocktail  %> </p>
+<script>console.log("galo doido")  </script>
